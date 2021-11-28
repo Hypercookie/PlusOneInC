@@ -74,8 +74,8 @@
 #define REVERSE_COMMA_10(a, ...) EXPAND(REVERSE_COMMA_9(__VA_ARGS__)),a
 #define REVERSE_COMMA1(N, ...) EXPAND(REVERSE_COMMA_ ## N(__VA_ARGS__))
 #define REVERSE_COMMA(N, ...) REVERSE_COMMA1(N, __VA_ARGS__)
-#define _GET_NTH_ARG(_1, _2, _3, _4, _5, _6, _7, _9, _10, N, ...) N
-#define NUM_ARGS(...) EXPAND(_GET_NTH_ARG(__VA_ARGS__,9,8,7,6,5,4,3,2,1,0))
+#define _GET_NTH_ARG(_1, _2, _3, _4, _5, _6, _7, _9, _10,_11,_12,_13,_14,_15,_16,_17,_18,_19,_20,_21, N, ...) N
+#define NUM_ARGS(...) EXPAND(_GET_NTH_ARG(__VA_ARGS__,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0))
 
 #define reverseStart REVERSE_COMMA(NUM_ARGS(start), start)
 #define INCA_HELPER(...) IIF(NOT(BOOL(DEC(NUM_ARGS(__VA_ARGS__))))) (INCA(__VA_ARGS__,0),INCA(__VA_ARGS__))
@@ -87,7 +87,7 @@
 
 int main() {
 
-#define start 9,2,1
+#define start 9,9,9,8,9,9,9
     printf("%d", EVAL(REVERSE(NUM_ARGS(REVERSE_COMMA(NUM_ARGS(EVAL(EXPAND PREP_FOR_OUTPUT(
             REVERSE_COMMA(NUM_ARGS(EVAL(INCA_HELPER(reverseStart))), EVAL(INCA_HELPER(
                     reverseStart)))))), EVAL(EXPAND PREP_FOR_OUTPUT(REVERSE_COMMA(NUM_ARGS(EVAL(INCA_HELPER(reverseStart))), EVAL(INCA_HELPER(reverseStart))))))), REVERSE_COMMA(NUM_ARGS(EVAL(EXPAND PREP_FOR_OUTPUT(REVERSE_COMMA(NUM_ARGS(EVAL(INCA_HELPER(reverseStart))), EVAL(INCA_HELPER(reverseStart)))))), EVAL(EXPAND PREP_FOR_OUTPUT(REVERSE_COMMA(NUM_ARGS(EVAL(INCA_HELPER(reverseStart))), EVAL(INCA_HELPER(reverseStart)))))))));
