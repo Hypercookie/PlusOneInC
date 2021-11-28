@@ -19,20 +19,16 @@
 #define CHECK_N(x, n, ...) n
 #define CHECK(...) CHECK_N(__VA_ARGS__, 0,)
 #define PROBE(x) x, 1,
-#define IS_PAREN(x) CHECK(IS_PAREN_PROBE x)
-#define IS_PAREN_PROBE(...) PROBE(~)
 #define NOT(x) CHECK(PRIMITIVE_CAT(NOT_, x))
 #define NOT_0 PROBE(~)
 #define BOOL(x) COMPL(NOT(x))
 #define IF(c) IIF(BOOL(c))
 #define EAT(...)
 #define EXPAND(...) __VA_ARGS__
-#define WHEN(c) IF(c)(EXPAND, EAT)
 #define EMPTY()
 #define DEFER(id) id EMPTY()
 #define OBSTRUCT(...) __VA_ARGS__ DEFER(EMPTY)()
 #define PRIMITIVE_CAT(a, ...) a ## __VA_ARGS__
-#define FIRST_ARG_(N, ...) N
 #define CAT(a, ...) PRIMITIVE_CAT(a, __VA_ARGS__)
 #define INCA(x, ...) PRIMITIVE_CAT(INCA_,x)(x,__VA_ARGS__)
 #define EXPAND(...) __VA_ARGS__
@@ -80,13 +76,9 @@
 #define REVERSE_COMMA(N, ...) REVERSE_COMMA1(N, __VA_ARGS__)
 #define _GET_NTH_ARG(_1, _2, _3, _4, _5, _6, _7, _9, _10, N, ...) N
 #define NUM_ARGS(...) EXPAND(_GET_NTH_ARG(__VA_ARGS__,9,8,7,6,5,4,3,2,1,0))
-#define OMIT_1(a) a
-#define OMIT_2(a, b) PRIMITIVE_CAT(a,b)
-#define OMIT_3(a, ...) OBSTRUCT(PRIMITIVE_CAT)(a,OMIT_2(__VA_ARGS__))
 
 #define reverseStart REVERSE_COMMA(NUM_ARGS(start), start)
-#define INCA_HELPER(...) INCA(__VA_ARGS__)
-#define split_macro_helper(x, ...) __VA_ARGS__
+#define INCA_HELPER(...) IIF(NOT(BOOL(DEC(NUM_ARGS(__VA_ARGS__))))) (INCA(__VA_ARGS__,0),INCA(__VA_ARGS__))
 #define PREP_FOR_OUTPUT(...) IIF(NOT(BOOL(DEC(NUM_ARGS(__VA_ARGS__))))) ((__VA_ARGS__),OBSTRUCT(REMOVE_LEADING_ZERO)(__VA_ARGS__))
 #define REMOVE_LEADING_ZERO(x, ...) IIF(BOOL(x)) ((x,__VA_ARGS__),OBSTRUCT(REMOVE_LEADING_ZERO_INDIRECT)()(__VA_ARGS__))
 #define REMOVE_LEADING_ZERO_INDIRECT() PREP_FOR_OUTPUT
@@ -95,7 +87,7 @@
 
 int main() {
 
-    #define start 4,0,0,0,0,0,0,0,0
+#define start 9,2,1
     printf("%d", EVAL(REVERSE(NUM_ARGS(REVERSE_COMMA(NUM_ARGS(EVAL(EXPAND PREP_FOR_OUTPUT(
             REVERSE_COMMA(NUM_ARGS(EVAL(INCA_HELPER(reverseStart))), EVAL(INCA_HELPER(
                     reverseStart)))))), EVAL(EXPAND PREP_FOR_OUTPUT(REVERSE_COMMA(NUM_ARGS(EVAL(INCA_HELPER(reverseStart))), EVAL(INCA_HELPER(reverseStart))))))), REVERSE_COMMA(NUM_ARGS(EVAL(EXPAND PREP_FOR_OUTPUT(REVERSE_COMMA(NUM_ARGS(EVAL(INCA_HELPER(reverseStart))), EVAL(INCA_HELPER(reverseStart)))))), EVAL(EXPAND PREP_FOR_OUTPUT(REVERSE_COMMA(NUM_ARGS(EVAL(INCA_HELPER(reverseStart))), EVAL(INCA_HELPER(reverseStart)))))))));
