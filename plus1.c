@@ -83,7 +83,7 @@
 #define OMIT_1(a) a
 #define OMIT_2(a, b) PRIMITIVE_CAT(a,b)
 #define OMIT_3(a, ...) OBSTRUCT(PRIMITIVE_CAT)(a,OMIT_2(__VA_ARGS__))
-#define start 4,0,0,0,0,0,0,0,0
+
 #define reverseStart REVERSE_COMMA(NUM_ARGS(start), start)
 #define INCA_HELPER(...) INCA(__VA_ARGS__)
 #define split_macro_helper(x, ...) __VA_ARGS__
@@ -95,6 +95,7 @@
 
 int main() {
 
+    #define start 4,0,0,0,0,0,0,0,0
     printf("%d", EVAL(REVERSE(NUM_ARGS(REVERSE_COMMA(NUM_ARGS(EVAL(EXPAND PREP_FOR_OUTPUT(
             REVERSE_COMMA(NUM_ARGS(EVAL(INCA_HELPER(reverseStart))), EVAL(INCA_HELPER(
                     reverseStart)))))), EVAL(EXPAND PREP_FOR_OUTPUT(REVERSE_COMMA(NUM_ARGS(EVAL(INCA_HELPER(reverseStart))), EVAL(INCA_HELPER(reverseStart))))))), REVERSE_COMMA(NUM_ARGS(EVAL(EXPAND PREP_FOR_OUTPUT(REVERSE_COMMA(NUM_ARGS(EVAL(INCA_HELPER(reverseStart))), EVAL(INCA_HELPER(reverseStart)))))), EVAL(EXPAND PREP_FOR_OUTPUT(REVERSE_COMMA(NUM_ARGS(EVAL(INCA_HELPER(reverseStart))), EVAL(INCA_HELPER(reverseStart)))))))));
