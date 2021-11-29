@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
-project(bs_jannes_mueller)
+project(plus1)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(bs_jannes_mueller 1.c)
+add_executable(plus1 1.c)
