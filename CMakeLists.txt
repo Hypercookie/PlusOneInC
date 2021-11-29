@@ -3,4 +3,4 @@ project(bs_jannes_mueller)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(bs_jannes_mueller plus1.c)
+add_executable(bs_jannes_mueller 1.c)
